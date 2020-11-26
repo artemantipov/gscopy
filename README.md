@@ -5,14 +5,14 @@ Simple _COPY_ functional of [gsutils](https://cloud.google.com/storage/docs/gsut
 ``` go build -o gscopy .```
 
 ### Usage
-Prerequisites: You have to set variable `GOOGLE_APPLICATION_CREDENTIALS` for service account according [Google Documentation](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
+___Prerequisites___: You have to set variable `GOOGLE_APPLICATION_CREDENTIALS` for service account according [Google Documentation](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
 
 #### Copy (recursive)
 Single-thread:
 
 ```./gscopy gs://bucket-name/mydir /local/path```
 
-Multi-thread (concurrently):
+#### Multi-thread (concurrently):
 
 ```./gscopy -m 10 gs://bucket-name/mydir /local/path```
 
