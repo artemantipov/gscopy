@@ -2,7 +2,7 @@
 Simple _COPY_ functional of [gsutils](https://cloud.google.com/storage/docs/gsutil) written in Go
 
 ### Build
-``` go build -o gscopy .```
+``` go mod download && go build -o gscopy ```
 
 ### Usage
 ___Prerequisites___: You have to set variable `GOOGLE_APPLICATION_CREDENTIALS` for service account according [Google Documentation](https://cloud.google.com/docs/authentication/getting-started#setting_the_environment_variable)
