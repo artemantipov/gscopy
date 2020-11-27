@@ -21,8 +21,11 @@ import (
 
 func main() {
 	var bucketArg, localPathArg, bucketName, bucketPath string
-
 	concurFlag := flag.Int("m", 1, "number of concurrent copy tasks")
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: gscopy [-m] gs://bucketname/remote/dir /local/dir\n")
+		flag.PrintDefaults()
+	}
 	flag.Parse()
 	afterFlagArgs := flag.Args()
 	bucketArg = afterFlagArgs[0]
@@ -44,7 +47,7 @@ func main() {
 		log.Println("Single-thread copy")
 	}
 
-	copyFile := func( f string) {
+	copyFile := func(f string) {
 		path := localPathArg + "/" + f
 		if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			log.Printf("Error creating dirs %v : %v", filepath.Dir(path), err)
@@ -59,14 +62,14 @@ func main() {
 		if err != nil {
 			log.Printf("Error saving file %v: %v", path, err)
 		}
-		log.Printf("Copied: %v",path)
+		log.Printf("Copied: %v", path)
 
 	}
 
 	// Create WaitGroup and Semaphore channel to control routine amount and completion
 	var wg sync.WaitGroup
 	sem := make(chan int, *concurFlag)
-	for _,f := range listing {
+	for _, f := range listing {
 		sem <- 1
 		wg.Add(1)
 		go func(f string) {
@@ -113,7 +116,7 @@ func listFiles(bucket, path string) (listing []string, err error) {
 		}
 		listing = append(listing, attrs.Name)
 	}
-	return listing,nil
+	return listing, nil
 }
 
 // downloadFile downloads an object.
